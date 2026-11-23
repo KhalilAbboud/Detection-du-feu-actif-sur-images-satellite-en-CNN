@@ -1,0 +1,70 @@
+{
+  "dataset": "z789456sx/ts-satfire",
+  "seed": 42,
+  "data_fraction": 1.0,
+  "size": 256,
+  "baseline_eligibility_size": 128,
+  "epochs": 30,
+  "early_stopping_patience": 8,
+  "batch_size": 8,
+  "loss": "weighted cross-entropy + 0.9 * dice (fire, burned)",
+  "architecture": "6 conv 3x3 blocks, dilation 1-2-4-8-16-1, BatchNorm, 1x1 softmax (4 classes)",
+  "lr_schedule": "Adam 1e-3, ReduceLROnPlateau x0.5 patience 3",
+  "prediction_rule": "pairwise_v1: argmax group, then adjusted fire vs burned or forest vs other",
+  "decision": {
+    "fire_factor": 1.25,
+    "forest_factor": 0.67
+  },
+  "valid_landcover_codes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "cv_folds": null,
+  "input_bands_one_based": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "active_band": 7,
+  "burned_band": 8,
+  "landcover_band": 14,
+  "forest_codes": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "landcover_fill_codes": [
+    255
+  ],
+  "resampling": "nearest",
+  "class_ids": {
+    "0": "forest",
+    "1": "fire",
+    "2": "burned",
+    "3": "other",
+    "255": "ignore"
+  },
+  "date_filter": "both native-resolution label layers must contain positive annotations; a date needs at least one forest, fire or burned pixel (same dates as version 3)",
+  "tensorflow_version": "2.21.0",
+  "rasterio_version": "1.5.2"
+}
